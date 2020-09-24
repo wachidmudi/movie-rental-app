@@ -1,0 +1,23 @@
+[
+  {
+    "title": "The Larva Island Movie",
+    "description": "Dalam sekuel film ini untuk serial hit, Chuck kembali ke rumah dan berbicara dengan seorang reporter tentang kehidupan di pulau itu dengan teman-teman larva merah dan kuning",
+    "cover": "uploads/larva-cover.jpg",
+    "released_year": 2020,
+    "price": 25000
+  },
+  {
+    "title": "Avengers: Endgame",
+    "description": "Melanjutkan Avengers Infinity War, dimana kejadian setelah Thanos berhasil mendapatkan semua infinity stones dan memusnahkan 50% semua mahluk hidup di alam semesta. Akankah para Avengers berhasil mengalahkan Thanos?",
+    "cover": "uploads/avengers-cover.jpg",
+    "released_year": 2019,
+    "price": 45000
+  },
+  {
+    "title": "Iron Man",
+    "description": "Menceritakan awal kisah Tony Stark, seorang miliyuner pemilik perusahaan Stark Industries, bergerak di bidang pembuatan senjata untuk kepentingan pihak militer. Tony Stark pun dikenal jenius dalam merancang senjata canggih.",
+    "cover": "uploads/ironman-cover.jpg",
+    "released_year": 2008,
+    "price": 35000
+  }
+]

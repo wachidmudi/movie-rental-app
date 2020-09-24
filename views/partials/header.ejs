@@ -15,7 +15,8 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Movie Rental App</a>
+    <div class="container">
+    <a class="navbar-brand" href="/">Movie Rental App</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -24,16 +25,24 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light font-weight-bold" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Login</a>
+          <a class="nav-link text-light" href="/transactions">Transactions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="/movies">Movies</a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      <% if (locals.session.isLogin) { %>
+        <button class="btn btn-primary">
+          Hi, <%= session.user.first_name %> <%= session.user.last_name %>
+        </button>
+      <% } else {%>
+        <a class="nav-link text-light" href="/users/register">Register</a>
+        <a class="nav-link text-light" href="/users/login">Login</a>
+      <% }%>
+    </div>
     </div>
   </nav>
 

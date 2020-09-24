@@ -1,26 +1,28 @@
-<%- include('../partials/header', { title: 'Add Movie' }) %>
+<%- include('../partials/header', { title: 'Edit Movie' }) %>
 
-<h1>Submit new Movie</h1>
-<form action="/movies/add" enctype="multipart/form-data" method="POST">
+<h1>Update Movie</h1>
+<form action="/movies/<%= movie.id %>/edit" enctype="multipart/form-data" method="POST">
   <div class="form-group">
     <label for="title">Title</label>
-    <input name="title" type="text" class="form-control" id="title" aria-describedby="title">
+    <input name="title" value="<%= movie.title %>" type="text" class="form-control" id="title" aria-describedby="title">
   </div>
   <div class="custom-file mb-3">
     <input name="cover" type="file" class="custom-file-input" id="cover">
     <label class="custom-file-label" for="cover">Upload Cover</label>
+    <input name="cover_hidden" hidden value="<%= movie.cover %>" type="text" id="cover_hidden">
   </div>
   <div class="form-group">
     <label for="description">Description</label>
-    <textarea name="description" minlength="5" maxlength="255" class="form-control" id="description" rows="3"></textarea>
+    <textarea name="description" minlength="5" maxlength="255" class="form-control" id="description" rows="3"><%= movie.description %></textarea>
   </div>
   <div class="form-group">
     <label for="released_year">Released Year</label>
     <select name="released_year" id="released_year" class="custom-select"></select>
   </div>
   <div class="custom-file mb-3">
-    <input name="screenshots" type="file" multiple class="custom-file-input" id="customFile">
+    <input name="screenshots" type="file" multiple class="custom-file-input" id="screenshots">
     <label class="custom-file-label" for="customFile">Upload screenshots</label>
+    <input name="screenshot_hidden" hidden value="<%= JSON.stringify(movie.Screenshots.map(i => i.name)) %>" type="text" id="screenshot_hidden">
   </div>
   <div class="form-group">
     <div id="genre-view"></div>
@@ -38,7 +40,7 @@
   </div>
   <div class="form-group">
     <label for="price">Price</label>
-    <input name="price" type="number" class="form-control" id="price">
+    <input name="price" value="<%= movie.price %>" type="number" class="form-control" id="price">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
@@ -66,14 +68,38 @@
   }
 
   // Generate Years Array
+  let movieYear = +'<%= movie.released_year %>'
   const selectYear = document.getElementById('released_year')
   const now = new Date().getUTCFullYear()
   const years = Array(now - (now - 30)).fill('').map((v, idx) => now - idx)
   const yearOptions = years.map(year => {
-    return `<option value="${year}">${year}</option>`
+    return `<option value="${year}" ${year === movieYear ? 'selected' : ''}>${year}</option>`
   }).join('')
 
   selectYear.innerHTML = yearOptions
+
+  // Populate hidden input for cover and screenshot files
+  const cover = document.getElementById('cover')
+  const screenshots = document.getElementById('screenshots')
+  const oldCover = document.getElementById('cover_hidden')
+  const oldScreenshots = document.getElementById('screenshot_hidden')
+
+  cover.addEventListener("change", e => {
+      let {files} = cover
+      // If user upload new cover, set old cover to empty
+      if (files.length) {
+        oldCover.value = ''
+      }
+  })
+
+  screenshots.addEventListener("change", e => {
+      let {files} = screenshots
+      // If user upload new screenshots, set old screenshots to empty
+      if (files.length) {
+        oldScreenshots.value = ''
+      }
+  })
+
 </script>
 
 <%- include('../partials/footer') %>
