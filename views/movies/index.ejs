@@ -1,0 +1,25 @@
+<%- include('../partials/header', { title: 'Movies' }) %>
+
+<h1>List of Movies</h1>
+<a href="/movies/add" class="btn btn-primary">Add Movie</a>
+
+<div class="row">
+  <% movies.forEach(movie => { %>
+    <div class="col-3">
+      <div class="card" style="width: 18rem;">
+        <img src="<%= movie.cover %>" class="card-img-top" alt="cover">
+        <div class="card-body">
+          <h5 class="card-title"><%= movie.title %></h5>
+          <p class="card-text"><%= movie.description %></p>
+          <p class="card-text"><%= movie.price %></p>
+          <% movie.Genres.forEach(genre => { %>
+            <span class="badge badge-info"><%= genre.toJSON().name %> </span>
+          <% }) %>
+          <a href="#" class="btn btn-primary">Rent</a>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+<%- include('../partials/footer') %>
