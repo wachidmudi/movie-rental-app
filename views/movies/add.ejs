@@ -1,0 +1,69 @@
+<%- include('../partials/header', { title: 'Add Movie' }) %>
+
+<h1>Submit new Movie</h1>
+<form action="/movies/add" enctype="multipart/form-data" method="POST">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input name="title" type="text" class="form-control" id="title" aria-describedby="emailHelp">
+  </div>
+  <div class="custom-file mb-3">
+    <input name="cover" type="file" class="custom-file-input" id="cover">
+    <label class="custom-file-label" for="cover">Upload Cover</label>
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea name="description" class="form-control" id="description" rows="3"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="released_year">Released Year</label>
+    <input name="released_year" type="number" class="form-control" id="released_year">
+  </div>
+  <div class="custom-file mb-3">
+    <input name="screenshots" type="file" multiple class="custom-file-input" id="customFile">
+    <label class="custom-file-label" for="customFile">Upload screenshots</label>
+  </div>
+  <div class="form-group">
+    <div id="genre-view"></div>
+  </div>
+  <div class="form-group">
+    <label for="genre">Genre</label>
+    <select class="custom-select" id="select-genre" name="select-genre">
+      <option disabled selected>Select Genre</option>
+      <% genres.forEach(genre => { %>
+        <option value="<%= genre.id %>,<%= genre.name %>"><%= genre.name %> </option>
+      <% }) %>
+    </select>
+    <button class="btn btn-primary mt-2" onclick="addGenre()" type="button">Add Genre</button>
+    <input id="genre-hidden" type="hidden" name="genre_ids">
+  </div>
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input name="price" type="number" class="form-control" id="price">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+  let genreIds = new Set()
+  let genreNames = new Set()
+
+  function addGenre() {
+    let genreValue = document.getElementById('select-genre').value.split(',')
+    let genreHidden = document.getElementById('genre-hidden')
+    let genreView = document.getElementById('genre-view')
+
+    genreIds.add(+genreValue[0])
+    genreNames.add(genreValue[1])
+
+    genreHidden.value = JSON.stringify([...genreIds])
+
+    let genreElem = [...genreNames].map(genre => {
+      return `<button type="button" class="btn btn-sm btn-info">
+              ${genre}
+             </button>`
+    }).join('')
+    genreView.innerHTML = genreElem
+  }
+</script>
+
+<%- include('../partials/footer') %>
