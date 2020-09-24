@@ -1,0 +1,31 @@
+<%- include('../partials/header', { title: 'Register' }) %>
+
+<div class="container py-4">
+  <div class="row justify-content-md-center">
+    <div class="col-6">
+      <h1 class="mb-5">Register</h1>
+      <form action="/users/register" method="POST">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" name="first_name" class="form-control" id="firstName" aria-describedby="firstName">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" name="last_name" class="form-control" id="lastName" aria-describedby="lastName">
+        </div>
+        <div class="form-group">
+          <label for="inputEmail">Email address</label>
+          <input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="email">
+          <small id="inputEmail" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword">Password</label>
+          <input type="password" name="password" class="form-control" id="inputPassword">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

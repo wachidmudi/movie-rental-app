@@ -9,4 +9,9 @@ router.get('/', MovieController.getAll)
 router.get('/add', MovieController.getAdd)
 router.post('/add', multipleUpload, MovieController.postAdd)
 
+router.get('/:id/edit', MovieController.getEdit)
+router.post('/:id/edit', multipleUpload, MovieController.postEdit)
+
+router.get('/:id/delete', MovieController.getDelete)
+
 module.exports = router

@@ -1,21 +1,48 @@
-<%- include('../partials/header', { title: 'Movies' }) %>
+<%- include('../partials/header', { title: 'Movies', session }) %>
 
-<h1>List of Movies</h1>
-<a href="/movies/add" class="btn btn-primary">Add Movie</a>
+<div class="py-4">
+  <div class="row">
+    <div class="col">
+      <h1>List of Movies</h1>
+    </div>
+    <div class="col">
+      <a href="/movies/add" class="btn btn-primary">Add Movie</a>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <% movies.forEach(movie => { %>
-    <div class="col-3">
-      <div class="card" style="width: 18rem;">
-        <img src="<%= movie.cover %>" class="card-img-top" alt="cover">
-        <div class="card-body">
-          <h5 class="card-title"><%= movie.title %></h5>
-          <p class="card-text"><%= movie.description %></p>
-          <p class="card-text"><%= movie.price %></p>
-          <% movie.Genres.forEach(genre => { %>
-            <span class="badge badge-info"><%= genre.toJSON().name %> </span>
-          <% }) %>
-          <a href="#" class="btn btn-primary">Rent</a>
+    <div class="col-6">
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src="<%= movie.cover %>" class="card-img" alt="cover">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%= movie.title %> (<%= movie.released_year %>)</h5>
+              <p class="card-text"><%= movie.description %></p>
+              <p class="card-text"><%= movie.formatPrice %></p>
+              <div class="d-flex mb-3">
+                <% movie.Genres.forEach(genre => { %>
+                <span class="badge badge-info mr-2 mb-2"><%= genre.toJSON().name %> </span>
+                <% }) %>
+              </div>
+              <% if (session && session.user && session.user.Role && session.user.Role.name == 'admin') { %>
+                <div class="btn-group" role="group" aria-label="action">
+                  <a href="/movies/<%= movie.id %>/edit" class="btn btn-info">Edit</a>
+                  <a href="/movies/<%= movie.id %>/delete" class="btn btn-danger">Delete</a>
+                </div>
+                <% }  else { %>
+                  <a
+                    href="/transactions/<%= session && session.user && session.user.id || 0 %>/<%= movie.id %>"
+                    class="btn btn-primary">
+                    Rent
+                  </a>
+              <% } %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,11 @@
-<%- include('./partials/header', { title: 'Movie Rental App' })  %>
+<%- include('./partials/header', { title: 'Movie Rental App', session })  %>
 
-  <h1>Movie Rental App</h1>
-  <a href="/movies" class="btn btn-outline-primary">View Movies</a>
+
+  <div class="jumbotron text-center">
+    <h1 class="display-4">Movie Rental App</h1>
+    <p class="lead">Rent all your favourites movies in single place.</p>
+    <hr class="my-4">
+    <a href="/movies" class="btn btn-lg btn-primary">View Movies</a>
+  </div>
 
 <%- include('./partials/footer')  %>

@@ -2,6 +2,9 @@
 const {
   Model
 } = require('sequelize');
+
+const formatRupiah = require('../helpers/formatRupiah')
+
 module.exports = (sequelize, DataTypes) => {
   class Movie extends Model {
     /**
@@ -9,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
+    get formatPrice() {
+      return formatRupiah(this.price)
+    }
+
     static associate(models) {
       // define association here
       Movie.belongsToMany(models.Genre, { through: 'MovieGenres', foreignKey: 'movie_id' })

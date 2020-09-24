@@ -1,7 +1,7 @@
 class HomeController {
 
   static home(req, res) {
-    res.render('home')
+    res.render('home', { session: req.session })
   }
 
 }
