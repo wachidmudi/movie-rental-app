@@ -5,6 +5,9 @@ class TransactionsController {
 
   static getAll(req, res) {
     User.findAll({
+      where: {
+        role_id: 2
+      },
       include: {
         model: Movie
       }

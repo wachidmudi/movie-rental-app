@@ -1,5 +1,5 @@
 function session(req, res, next) {
-  res.locals.user = req.session.user
+  res.locals.session = req.session
   next()
 }
 

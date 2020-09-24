@@ -42,7 +42,7 @@ class UsersController {
   }
 
   static getRegister(req, res) {
-    res.render('users/register')
+    res.render('users/register', { session: req.session })
   }
 
   static postRegister(req, res) {
@@ -53,7 +53,7 @@ class UsersController {
         const role_id = roles.find(i => i.name === 'customer').id
         return User.create({ first_name, last_name, email, password, role_id })
       })
-      .then(() => res.render('users/register-success'))
+      .then(() => res.render('users/register-success', { session: req.session }))
       .catch(err => {
         if (!err.errors) {
           return res.send(err)

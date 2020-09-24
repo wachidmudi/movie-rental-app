@@ -5,9 +5,11 @@
     <div class="col">
       <h1>List of Movies</h1>
     </div>
+    <% if (session && session.user && session.user.Role && session.user.Role.name == 'admin') { %>
     <div class="col">
       <a href="/movies/add" class="btn btn-primary">Add Movie</a>
     </div>
+    <% } %>
   </div>
 </div>
 
