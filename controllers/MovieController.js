@@ -139,10 +139,10 @@ class MovieController {
       })
     })
     .then(() => {
-      const cover = fs.unlink(movie.cover)
-      const screenshots = movie.Screenshots.map(item => fs.unlink(item.name))
+      // const cover = fs.unlink(movie.cover)
+      // const screenshots = movie.Screenshots.map(item => fs.unlink(item.name))
 
-      return Promise.all([cover, ...screenshots])
+      // return Promise.all([cover, ...screenshots])
     })
     .then(() => res.redirect('/movies'))
     .catch(err => res.end(err))
