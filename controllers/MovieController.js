@@ -18,9 +18,10 @@ class MovieController {
   }
 
   static getAdd(req, res) {
+    const { session } = req
     Genre.findAll()
-      .then(genres => res.render('movies/add', { genres }))
-      .catch(er => res.send(err))
+      .then(genres => res.render('movies/add', { genres, session }))
+      .catch(err => res.send(err))
   }
 
   static postAdd(req, res) {
@@ -52,6 +53,7 @@ class MovieController {
 
   static getEdit(req, res) {
     const { id } = req.params
+    const { session } = req
 
     let genres
     Genre.findAll()
@@ -59,11 +61,15 @@ class MovieController {
         genres = data
 
         return Movie.findByPk(id, {
-          include: [Genre, Screenshot]
+          include: [{
+            model: Genre
+          }, {
+            model: Screenshot
+          }]
         })
       })
       // .then(movie => res.send({ movie }))
-      .then(movie => res.render('movies/edit', { movie, genres }))
+      .then(movie => res.render('movies/edit', { movie, genres, session }))
       .catch(err => res.send(err))
   }
 
@@ -76,18 +82,18 @@ class MovieController {
       Movie.update({ title, description, released_year, price }, {
         where: { id }
       })
-      .then(() => MovieGenres.destroy({
-        where: {
-          movie_id: id
-        }
-      }))
+      // .then(() => MovieGenres.destroy({
+      //   where: {
+      //     movie_id: id
+      //   }
+      // }))
       .then(() => {
         const genreIds = JSON.parse(genre_ids).map(genre_id => MovieGenre.create({ movie_id: id, genre_id }))
         return Promise.all(genreIds)
       })
+      .then(() => res.redirect('/movies'))
       .catch(err => res.send(err))
     } else {
-      // Genre not handled yet
       // findByPk Movie
       // include Screenshot
       // unlink 'cover' & 'screenshots'
@@ -140,6 +146,21 @@ class MovieController {
     })
     .then(() => res.redirect('/movies'))
     .catch(err => res.end(err))
+  }
+
+  static getView(req, res) {
+    const { session } = req
+    const { id } = req.params
+    Movie.findByPk(id, {
+      include: [{
+        model: Genre
+      }, {
+        model: Screenshot
+      }]
+    })
+    // .then(movie => res.send({movie}))
+      .then(movie => res.render('movies/view', { movie, session }))
+    .catch(err => res.send(err))
   }
 
 }

@@ -1,0 +1,44 @@
+<%- include('../partials/header', { title: 'Edit Movie', session }) %>
+
+<div class="py-5">
+  <div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-2">
+        <img src="/<%= movie.cover %>" class="card-img" alt="cover">
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <h5 class="card-title"><%= movie.title %> (<%= movie.released_year %>)</h5>
+          <p class="card-text"><%= movie.description %></p>
+          <p class="card-text"><%= movie.formatPrice %></p>
+          <div class="d-flex mb-3">
+            <% movie.Genres.forEach(genre => { %>
+            <span class="badge badge-info mr-2 mb-2"><%= genre.toJSON().name %> </span>
+            <% }) %>
+          </div>
+          <h5>Previews</h5>
+          <div class="d-flex mb-3">
+            <% movie && movie.Screenshots && movie.Screenshots.forEach(ss => { %>
+              <div class="pr-3 pb-3 col-6">
+                <img class="img-fluid" src="/<%= ss.name %>" alt="ss">
+              </div>
+            <% }) %>
+          </div>
+          <% if (session && session.user && session.user.Role && session.user.Role.name == 'admin') { %>
+          <div class="btn-group" role="group" aria-label="action">
+            <a href="/movies/<%= movie.id %>/edit" class="btn btn-info">Edit</a>
+            <a href="/movies/<%= movie.id %>/delete" class="btn btn-danger">Delete</a>
+          </div>
+          <% }  else { %>
+          <a href="/transactions/<%= session && session.user && session.user.id || 0 %>/<%= movie.id %>"
+            class="btn btn-primary">
+            Rent
+          </a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
