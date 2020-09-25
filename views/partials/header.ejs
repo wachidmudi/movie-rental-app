@@ -38,6 +38,9 @@
         <button class="btn btn-primary">
           Hi, <%= session.user.first_name %> <%= session.user.last_name %>
         </button>
+        <a href="/users/logout" class="btn btn-primary">
+          Logout
+        </a>
       <% } else {%>
         <a class="nav-link text-light" href="/users/register">Register</a>
         <a class="nav-link text-light" href="/users/login">Login</a>

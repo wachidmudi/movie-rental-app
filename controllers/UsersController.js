@@ -64,6 +64,12 @@ class UsersController {
       })
   }
 
+  static getLogout(req, res) {
+    delete req.session.isLogin
+    delete req.session.user
+    res.redirect('/users/login')
+  }
+
 }
 
 module.exports = UsersController
