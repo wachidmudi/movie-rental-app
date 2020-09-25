@@ -1,4 +1,4 @@
-const { User, Movie } = require('../models')
+const { User, Movie, Transaction } = require('../models')
 const formatRupiah = require('../helpers/formatRupiah')
 
 class TransactionsController {
